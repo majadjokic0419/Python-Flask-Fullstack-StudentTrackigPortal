@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="login">
+
+    <main class="form-signin">
+        <form action="/" method="get">
+            <img class="img-fluid mb-4" src="../static/Logo-akademije-Nis-2020-e1583448050322.png" alt="">
+
+
+            <div class="form-floating">
+                <label for="floatingInput">Email adresa:</label>
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+
+            </div>
+            <div class="form-floating">
+                <label for="floatingPassword">Lozinka:</label>
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+            </div>
+            <a class="w-100 btn btn-lg btn-primary" href="{{url_for( 'korisnici')}}" role=" button ">Prijavi se</a>
+        </form>
+    </main>
+
+
+
+</div>{% endblock %}

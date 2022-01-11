@@ -1,0 +1,144 @@
+{% extends 'base.html' %} {% block content %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Evidencija Studenata</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{url_for('studenti')}}">Sudenti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('predmeti')}}">Predmeti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('korisnici')}}">Korisnici</a>
+                </li>
+            </ul>
+
+        </div>
+        <form class="d-flex justify-content-end">
+            <a href="{{url_for( 'logout')}}" class="btn btn-primary "><i class="fas fa-sign-out-alt"></i></a>
+        </form>
+</nav>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-6 ">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Ime</th>
+                        <td>{{student.ime}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ime roditelja</th>
+                        <td>{{student.ime_roditelja}}</td>
+                    </tr>
+                    <tr>
+                        <th>Prezime</th>
+                        <td>{{student.prezime}}</td>
+                    </tr>
+                    <tr>
+                        <th>Broj indeksa</th>
+                        <td>{{student.broj_indeksa}}</td>
+                    </tr>
+                    <tr>
+                        <th>Godina Studija</th>
+                        <td>{{student.godina_studija}}</td>
+                    </tr>
+                    <tr>
+                        <th>Broj Telefona</th>
+                        <td>{{student.broj_telefona}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{student.email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Datum rodjenja</th>
+                        <td>{{student.datum_rodjenja}}</td>
+                    </tr>
+                    <tr>
+                        <th>JMBG</th>
+                        <td>{{student.jmbg}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ukupno ESPB</th>
+                        <td>{{student.espb}}</td>
+                    </tr>
+                    <tr>
+                        <th>Prosecna ocena</th>
+                        <td>{{student.prosek_ocena}}</td>
+                    </tr>
+                    <tr>
+                        <th>Akcije</th>
+                        <td>
+                            <a class=" text-warning mx-1 " href="{{url_for( 'student_izmena', id=student.id)}}" role="button "><i class="fas fa-edit "></i></a>
+                            <a class="text-danger mx-1 " href="{{url_for( 'student_brisanje', id=student.id)}}" role="button "><i class="fas fa-trash "></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 ">
+            <form action=>
+                <div class="py-1 ">
+                    <label for="odabran_predmet " class="form-label ">Predmet:</label>
+                    <select class="form-select form-select-sm " placeholder="Odabran predmet " id="odabran_predmet " name="odabran_predmet ">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>4</option>
+                        </select>
+                </div>
+                <div class="py-1 ">
+                    <label for="ocena " class="form-label ">Naziv:</label>
+                    <input type="text " class="form-control form-control-sm " id="ocena " name="ocena " placeholder=" " value=" " required>
+                </div>
+                <div class="py-1 ">
+                    <label for="datum " class="form-label ">Datum:</label>
+                    <input type="text " class="form-control form-control-sm " id="datum " name="datum " placeholder="mm/dd/yyyy " value=" " required>
+                </div>
+                <div class="py-1 d-flex justify-content-center ">
+                    <button type="submit " class="btn btn-primary ">Dodaj ocenu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row py-5">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Šifra</th>
+                        <th scope="col">Naziv</th>
+                        <th scope="col">Godina studija</th>
+                        <th scope="col">Obavezni/Izborni</th>
+                        <th scope="col">ESPB</th>
+                        <th scope="col">Ocena</th>
+                        <th scope="col">Akcija</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">VPS</th>
+                        <td>Web Programiranje</td>
+                        <td>3</td>
+                        <td>Obavezni</td>
+                        <td>6</td>
+                        <td>8</td>
+                        <td>
+                            <a class="text-warning mx-1" href="{{url_for( 'predmet_izmena' , id=11)}}" role=" button "><i class="fas fa-edit "></i></a>
+                            <a class="text-danger mx-1 " href="{{url_for( 'predmet_brisanje' , id=11)}}" role="button "><i class="fas fa-trash "></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>{% endblock %}

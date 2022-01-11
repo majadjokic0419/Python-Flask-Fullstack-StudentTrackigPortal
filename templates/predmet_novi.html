@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block content %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Evidencija Studenata</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('studenti')}}">Sudenti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{url_for('predmeti')}}">Predmeti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{url_for('korisnici')}}">Korisnici</a>
+                </li>
+            </ul>
+
+        </div>
+        <form class="d-flex justify-content-end">
+            <a href="{{url_for( 'logout')}}" class="btn btn-primary "><i class="fas fa-sign-out-alt"></i></a>
+        </form>
+</nav>
+<div class="container box d-flex align-items-center">
+    <div class="col-sm-3">
+        <form>
+            <h3>Novi Predmet</h3>
+            <div class="py-2">
+                <label for="sifra" class="form-label">Sifra:</label>
+                <input type="text" class="form-control" id="sifra" placeholder="" value="" name="sifra" required>
+            </div>
+            <div class="py-2">
+                <label for="naziv" class="form-label">Naziv:</label>
+                <input type="text" class="form-control" id="naziv" name="naziv" placeholder="" value="" required>
+            </div>
+            <div class="py-1">
+                <label for="predmet_godina" class="form-label">Godina Studija:</label>
+                <select class="form-select form-select-sm" id="predmet_godina" name="predmet_godina">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>4</option>
+                    </select>
+            </div>
+            <div class="py-2">
+                <label for="espb" class="form-label">ESPB:</label>
+                <input type="text" class="form-control" id="espb" placeholder="" value="" name="espb" required>
+            </div>
+            <div class="py-1">
+                <label for="status_predmeta" class="form-label">Obavezni/Izborni:</label>
+                <select class="form-select form-select-sm" id="status_predmeta" name="status_predmeta">
+                    <option>Obavezni</option>
+                    <option>Izborni</option>
+                </select>
+            </div>
+            <div class="py-2">
+                <button type="submit" class="btn btn-primary">Sacuvaj</button>
+            </div>
+        </form>
+    </div>
+</div>{% endblock %}
