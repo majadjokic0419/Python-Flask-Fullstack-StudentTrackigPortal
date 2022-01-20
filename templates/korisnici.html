@@ -29,7 +29,7 @@
 </nav>
 <div class="container mt-4">
 
-    <div class="d-flex justify-content-end p-3"><a href="{{url_for( 'korisnik_novi')}}" class="btn btn-primary btn-sm">Dodaj Korisnika</a></div>
+    <div class="d-flex justify-content-end p-3"><a href="{{url_for( 'korisnik_novi')}}" class="btn btn-primary btn-sm">Dodaj Korisnika</a><a href={{ url_for( 'export', tip="korisnici" ) }} role="button" class="btn btn-success btn-sm">Export</a></div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -49,11 +49,37 @@
                 <td>{{korisnik.rola}}</td>
                 <td>
                     <a class="text-warning mx-1" href="{{url_for( 'korisnik_izmena' , id=korisnik.id)}}" role=" button "><i class="fas fa-edit "></i></a>
-                    <a class="text-danger mx-1 " href="{{url_for( 'korisnik_brisanje' , id=korisnik.id)}}" role="button "><i class="fas fa-trash "></i></a>
+
+                    <button type="button" class="btn link-button mx-1" data-bs-toggle="modal" data-bs-target="#deleteModal{{korisnik.id}}"><i class="fas fa-trash"></i></button>
+                    <div class="modal fade" id="deleteModal{{korisnik.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    Da li ste sigurni da želite da obrišete korisnika {{ korisnik.ime }}?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Odustani</button>
+                                    <form method="post" action={{url_for( 'korisnik_brisanje' , id=korisnik.id)}} class="inline">
+                                        <input type="hidden" name="extra_submit_param" value="extra_submit_value">
+                                        <button type="submit" name="submit_param" value="submit_value" class="btn btn-danger">
+                                                Obriši
+                                            </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <nav aria-label="Page navigation ">
+        <ul class="pagination justify-content-center mt-3 ">
+            <li class="page-item {% if strana=='1' %} disabled {% endif %} "><a class="page-link " href="{{ prethodna_strana }} ">Prethodna</a></li>
+            <li class="page-item active "><a class="page-link " href="# ">{{ strana }}</a></li>
+            <li class="page-item "><a class="page-link " href="{{ sledeca_strana }} ">Sledeca</a></li>
+        </ul>
+    </nav>
 </div>
 {% endblock %}

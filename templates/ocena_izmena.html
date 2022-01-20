@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block content %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Evidencija Studenata</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{url_for('studenti')}}">Sudenti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('predmeti')}}">Predmeti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('korisnici')}}">Korisnici</a>
+                </li>
+            </ul>
+
+        </div>
+        <form class="d-flex justify-content-end">
+            <a href="{{url_for( 'logout')}}" class="btn btn-primary "><i class="fas fa-sign-out-alt"></i></a>
+        </form>
+</nav>
+<div class="container box d-flex align-items-center">
+    <div class="col-sm-6">
+        <h3>Izmena Ocene</h3>
+        <form action={{ url_for( 'ocena_izmena', id=ocene.id )}} enctype="multipart/form-data" method='POST'>
+
+            <div class="py-2">
+                <label for="izabrani_predmet" class="form-label">Predmet:</label>
+                <select class="form-select form-select-sm" id="izabrani_predmet" value={{predmet.naziv}} name="odabran_predmet">
+                        <option value="{{predmet.naziv}}" selected >{{predmet.naziv}}</option>
+                    </select>
+            </div>
+
+            <div class="py-1 ">
+                <label for="izabrana_ocena " class="form-label ">Ocena:</label>
+                <select class="form-select form-select-sm " placeholder={{ocene.ocena}} value={{ocene.ocena}} name="ocena">
+                <option value='6' {% if ocene.ocena =='6' %} selected {% endif %}>6</option>
+                <option value='7' {% if ocene.ocena =='7' %} selected {% endif %}>7</option>
+                <option value='8' {% if ocene.ocena =='8' %} selected {% endif %}>8</option>
+                <option value='9' {% if ocene.ocena =='9' %} selected {% endif %}>9</option>
+                <option value='10' {% if ocene.ocena =='10' %} selected {% endif %}>10</option>
+            </select>
+            </div>
+            <div class="py-1 ">
+                <label for="datum_ocene" class="form-label ">Datum:</label>
+                <input type="text " class="form-control form-control-sm " id="datum_ocene" name="datum" placeholder="mm/dd/yyyy" value="" required>
+            </div>
+            <div class="py-1 d-flex justify-content-center ">
+                <button type="submit " class="btn btn-primary ">Izmeni ocenu</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

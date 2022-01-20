@@ -27,7 +27,7 @@
 </nav>
 <div class="container box d-flex align-items-center">
     <div class="col-sm-3">
-        <form action={{ url_for( 'korisnik_izmena', id=korisnik.id )}} method="POST">
+        <form action={{ url_for( 'korisnik_izmena', id=korisnik.id )}} enctype="multipart/form-data" method="POST">
             <h3>Izmeni Korisnika</h3>
             <div class="py-2">
                 <label for="ime" class="form-label">Ime:</label>

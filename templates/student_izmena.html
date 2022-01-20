@@ -13,7 +13,7 @@
                     <a class="nav-link active" href="{{url_for('studenti')}}">Sudenti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('predmeti')}}">Predmeti</a>
+                    <a class="nav-link" href="{{url_for('studenti')}}">studenti</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{{url_for('korisnici')}}">Korisnici</a>
@@ -27,55 +27,61 @@
 </nav>
 <div class="container box d-flex align-items-center">
     <div class="col-sm-3">
-        <form>
-            <h3 class="py-3">Novi Student</h3>
+        <form action={{ url_for( 'student_izmena', id=student.id )}} enctype="multipart/form-data" method="POST">
+            <h3 class="py-3">Student Izmena</h3>
+            <div class="py-1">
+                <label for="slika" class="form-label">
+                    <img {% if student.slika %} src="/static/uploads/{{ student.slika }}" {% else %} src="/static/img/placeholder.png" {% endif %} id="slika_pregled" /></label>
+                    <label for="slika" class="btn btn-outline-secondary btn-sm">Odaberi sliku</label>
+                    <input type="file" accept="image/*" class="custom-file-input" hidden id="slika" name="slika">
+                </div>
             <div class="py-1">
                 <label for="br_indeksa" class="form-label">Broj indeksa:</label>
-                <input type="text" class="form-control form-control-sm" id="br_indeksa" placeholder="" value={{student.broj_indeksa}} name="broj_indeksa" required>
+                <input type="text" class="form-control form-control-sm" id="br_indeksa" placeholder="" value="{{student.broj_indeksa}}" name="broj_indeksa" required>
             </div>
-            <div class="py-1">
-                <label for="ime_studenta" class="form-label">Ime:</label>
-                <input type="text" class="form-control form-control-sm" id="ime_studenta" name="ime" placeholder="" value={{student.ime}} required>
+            <div class="py-1 ">
+                <label for="ime_studenta " class="form-label ">Ime:</label>
+                <input type="text " class="form-control form-control-sm " id="ime_studenta " name="ime" placeholder=" " value={{student.ime}} required>
             </div>
-            <div class="py-1">
-                <label for="ime_roditelja" class="form-label">Ime roditelja:</label>
-                <input type="text" class="form-control form-control-sm" id="ime_roditelja" name="ime_roditelja" placeholder="" value={{student.ime_roditelja}} required>
+            <div class="py-1 ">
+                <label for="ime_roditelja " class="form-label ">Ime roditelja:</label>
+                <input type="text " class="form-control form-control-sm " id="ime_roditelja " name="ime_roditelja" placeholder=" " value={{student.ime_roditelja}} required>
             </div>
-            <div class="py-1">
-                <label for="prezime_studenta" class="form-label">Prezime:</label>
-                <input type="text" class="form-control form-control-sm" id="prezime_studenta" name="prezime" placeholder="" value={{student.prezime}} required>
-            </div>
-
-            <div class="py-1">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control form-control-sm " id="email" placeholder="Enter email" name="email" value={{student.email}} required>
+            <div class="py-1 ">
+                <label for="prezime_studenta " class="form-label ">Prezime:</label>
+                <input type="text " class="form-control form-control-sm " id="prezime_studenta " name="prezime" placeholder=" " value={{student.prezime}} required>
             </div>
 
-            <div class="py-1">
-                <label for="broj_telefona" class="form-label">Broj Telefona:</label>
-                <input type="text" class="form-control form-control-sm" id="broj_tefona" name="broj_telefona" placeholder="" value={{student.broj_telefona}} required>
+            <div class="py-1 ">
+                <label for="email " class="form-label ">Email:</label>
+                <input type="email " class="form-control form-control-sm " id="email " placeholder="Enter email " name="email" value={{student.email}} required>
             </div>
-            <div class="py-1">
-                <label for="godina_studija" class="form-label">Godina Studija:</label>
-                <select class="form-select form-select-sm" id="godina_studija" name="godina_studija">
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    <option value='4'>4</option>
-                    <option value='5'>5</option>
+
+            <div class="py-1 ">
+                <label for="broj_telefona " class="form-label ">Broj Telefona:</label>
+                <input type="text " class="form-control form-control-sm " id="broj_telefona " name="broj_telefona" placeholder=" " value={{student.broj_telefona}} required>
+            </div>
+            <div class="py-1 ">
+                <label for="godina_studija " class="form-label ">Godina Studija:</label>
+                <select class="form-select form-select-sm " id="godina_studija " name="godina_studija">
+                    <option value="1" {% if student.godina_studija == 1 %} selected {% endif %}>1</option>
+                    <option value="2" {% if student.godina_studija == 2 %} selected {% endif %}>2</option>
+                    <option value="3" {% if student.godina_studija == 3 %} selected {% endif %}>3</option>
+                    <option value="4" {% if student.godina_studija == 4 %} selected {% endif %}>4</option>
+                    <option value="5" {% if student.godina_studija == 5 %} selected {% endif %}>5</option>
                   </select>
             </div>
-            <div class="py-1">
-                <label for="datum_rodjenja" class="form-label">Datum rodjenja:</label>
-                <input type="text" class="form-control form-control-sm" id="datum_rodjenja" name="datum_rodjenja" placeholder="mm/dd/yyyy" value={{studet.datum_rodjenja}} required>
+            <div class="py-1 ">
+                <label for="datum_rodjenja " class="form-label ">Datum rodjenja:</label>
+                <input type="text " class="form-control form-control-sm " id="datum_rodjenja " name="datum_rodjenja" placeholder="mm/dd/yyyy " value={{student.datum_rodjenja}} required>
             </div>
-            <div class="py-1">
-                <label for="jmbg" class="form-label">JMBG:</label>
-                <input type="text" class="form-control form-control-sm" id="jmbg" name="jmbg" placeholder="" value={{studet.jmbg}} required>
+            <div class="py-1 ">
+                <label for="jmbg" class="form-label ">JMBG:</label>
+                <input type="text" class="form-control form-control-sm" id="jmbg" name="jmbg" placeholder=" " value={{student.jmbg}} required>
             </div>
 
-            <div class="py-1">
-                <button type="submit" class="btn btn-primary">Sacuvaj</button>
+            <div class="py-1 ">
+                <button type="submit " class="btn btn-primary ">Sacuvaj</button>
             </div>
         </form>
     </div>

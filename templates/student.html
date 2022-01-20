@@ -31,6 +31,11 @@
             <table class="table">
                 <tbody>
                     <tr>
+                        <td align="center">
+                            <img {% if student.slika %} src="/static/uploads/{{ student.slika }}" {% else %} src="/static/placeholder.png" {% endif %} id="slika_pregled" />
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Ime</th>
                         <td>{{student.ime}}</td>
                     </tr>
@@ -74,35 +79,56 @@
                         <th>Prosecna ocena</th>
                         <td>{{student.prosek_ocena}}</td>
                     </tr>
+                    {% if (rola == 'administrator') %}
                     <tr>
                         <th>Akcije</th>
                         <td>
                             <a class=" text-warning mx-1 " href="{{url_for( 'student_izmena', id=student.id)}}" role="button "><i class="fas fa-edit "></i></a>
-                            <a class="text-danger mx-1 " href="{{url_for( 'student_brisanje', id=student.id)}}" role="button "><i class="fas fa-trash "></i></a>
+                            <button type="button" class="btn link-button mx-1" data-bs-toggle="modal" data-bs-target="#deleteModal{{student.id}}"><i class="fas fa-trash"></i></button>
+                            <div class="modal fade" id="deleteModal{{student.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-body">
+                                        Da li ste sigurni da želite da obrišete studenta {{ student.ime }} {{ student.prezime }}?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Odustani</button>
+                                      <a href={{ url_for('student_brisanje', id=student.id) }} role="button" class="btn btn-danger">Obriši</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         </td>
                     </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>
         <div class="col-6 ">
-            <form action=>
+            <form action={{ url_for( 'ocena_nova' , id=student.id) }} enctype="multipart/form-data" method='POST'>
                 <div class="py-1 ">
-                    <label for="odabran_predmet " class="form-label ">Predmet:</label>
-                    <select class="form-select form-select-sm " placeholder="Odabran predmet " id="odabran_predmet " name="odabran_predmet ">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>4</option>
+                    <label for="odabran_predmet" class="form-label ">Predmet:</label>
+                    <select class="form-select form-select-sm " placeholder="Odabran predmet" id="odabran_predmet" name="odabran_predmet">
+                        {% for predmet in predmeti %}
+                            <option value="{{predmet.id}}">{{ predmet.naziv }}</option>
+                        {% endfor %}   
                         </select>
                 </div>
                 <div class="py-1 ">
-                    <label for="ocena " class="form-label ">Naziv:</label>
-                    <input type="text " class="form-control form-control-sm " id="ocena " name="ocena " placeholder=" " value=" " required>
+                    <label for="izabrana_ocena " class="form-label ">Ocena:</label>
+                    <select class="form-select form-select-sm" placeholder="ocena" id="izabrana_ocena" name="ocena">
+                            <option disabled selected value=''>Izaberite ocenu</option>
+                            <option value='6'>6</option>
+                            <option value='7'>7</option>
+                            <option value='8'>8</option>
+                            <option value='9'>9</option>
+                            <option value='10'>10</option>
+                        </select>
                 </div>
                 <div class="py-1 ">
-                    <label for="datum " class="form-label ">Datum:</label>
-                    <input type="text " class="form-control form-control-sm " id="datum " name="datum " placeholder="mm/dd/yyyy " value=" " required>
+                    <label for="datum" class="form-label ">Datum:</label>
+                    <input type="text " class="form-control form-control-sm " id="datum" name="datum" placeholder="mm/dd/yyyy" value="" required>
+
                 </div>
                 <div class="py-1 d-flex justify-content-center ">
                     <button type="submit " class="btn btn-primary ">Dodaj ocenu</button>
@@ -112,6 +138,7 @@
     </div>
     <div class="row py-5">
         <div class="col">
+            
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -125,20 +152,43 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for predmet_ocena in predmeti_ocene %}
                     <tr>
-                        <th scope="row">VPS</th>
-                        <td>Web Programiranje</td>
-                        <td>3</td>
-                        <td>Obavezni</td>
-                        <td>6</td>
-                        <td>8</td>
+                        <th scope="row">{{predmet_ocena.sifra}}</th>
+                        <td>{{predmet_ocena.naziv}}</td>
+                        <td>{{predmet_ocena.godina_studija}}</td>
+                        <td>{{predmet_ocena.obavezni_izborni}}</td>
+                        <td>{{predmet_ocena.espb}}</td>
+                        <td>{{predmet_ocena.ocena}}</td>
                         <td>
-                            <a class="text-warning mx-1" href="{{url_for( 'predmet_izmena' , id=11)}}" role=" button "><i class="fas fa-edit "></i></a>
-                            <a class="text-danger mx-1 " href="{{url_for( 'predmet_brisanje' , id=11)}}" role="button "><i class="fas fa-trash "></i></a>
+                            <a class="text-warning mx-1" href="{{url_for( 'ocena_izmena' , id=predmet_ocena.id)}}" role=" button " id="izmeni_ocenu"><i class="fas fa-edit "></i></a>
+
+
+                            <button type="button" class="btn link-button mx-1" data-bs-toggle="modal" data-bs-target="#deleteModal{{predmet_ocena.id}}"><i class="fas fa-trash"></i></button>
+                            <div class="modal fade" id="deleteModal{{predmet_ocena.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-body">
+                                        Da li ste sigurni da želite da obrišete ocenu?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Odustani</button>
+                                        <form method="post" action={{url_for( 'ocena_brisanje' , id=predmet_ocena.id)}} class="inline">
+                                            <input type="hidden" name="extra_submit_param" value="extra_submit_value">
+                                            <button type="submit" name="submit_param" value="submit_value" class="btn btn-danger">
+                                                Obriši
+                                            </button>
+                                        </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>               
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-</div>{% endblock %}
+</div>
+{% endblock %}

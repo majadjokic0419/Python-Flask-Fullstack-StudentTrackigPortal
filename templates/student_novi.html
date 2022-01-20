@@ -27,8 +27,16 @@
 </nav>
 <div class="container box d-flex align-items-center">
     <div class="col-sm-3">
-        <form>
+        <form action={{ url_for( 'student_novi' ) }} enctype="multipart/form-data" method="POST">
             <h3 class="py-3">Novi Student</h3>
+            <div class="py-3">
+                <label for="slika_pregled" class="form-label">
+                <img id="slika_pregled" src="/static/placeholder.png" />
+            </label>
+                <label for="slika" class="btn btn-outline-secondary btn-sm">Odaberi sliku</label>
+                <input type="file" accept="image/*" class="custom-file-input" hidden id="slika" name="slika">
+            </div>
+
             <div class="py-1">
                 <label for="br_indeksa" class="form-label">Broj indeksa:</label>
                 <input type="text" class="form-control form-control-sm" id="broj_indeksa" placeholder="" value="" name="broj_indeksa" required>

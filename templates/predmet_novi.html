@@ -27,7 +27,7 @@
 </nav>
 <div class="container box d-flex align-items-center">
     <div class="col-sm-3">
-        <form>
+        <form action={{ url_for( 'predmet_novi' )}} enctype="multipart/form-data" method="POST">
             <h3>Novi Predmet</h3>
             <div class="py-2">
                 <label for="sifra" class="form-label">Sifra:</label>
@@ -39,12 +39,12 @@
             </div>
             <div class="py-1">
                 <label for="predmet_godina" class="form-label">Godina Studija:</label>
-                <select class="form-select form-select-sm" id="predmet_godina" name="predmet_godina">
+                <select class="form-select form-select-sm" id="predmet_godina" name="godina_studija">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
                         <option>4</option>
-                        <option>4</option>
+                        <option>5</option>
                     </select>
             </div>
             <div class="py-2">
@@ -53,9 +53,9 @@
             </div>
             <div class="py-1">
                 <label for="status_predmeta" class="form-label">Obavezni/Izborni:</label>
-                <select class="form-select form-select-sm" id="status_predmeta" name="status_predmeta">
-                    <option>Obavezni</option>
-                    <option>Izborni</option>
+                <select class="form-select form-select-sm" id="status_predmeta" name="obavezni_izborni">
+                    <option value="obavezni">Obavezni</option>
+                    <option value="izborni">Izborni</option>
                 </select>
             </div>
             <div class="py-2">

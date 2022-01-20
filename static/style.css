@@ -79,3 +79,40 @@ body {
     border-bottom-width: 1px;
     box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
 }
+
+.input-group-append {
+    cursor: pointer;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: #dc3545;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: serif;
+    padding: 0rem;
+}
+
+.link-button:focus {
+    outline: none;
+}
+
+.link-button:active {
+    color: red;
+}
+
+.inline {
+    display: inline;
+}
+
+.loginText {
+    color: rgb(184, 182, 182);
+}
+#slika_pregled {
+    height: 150px;
+    width: 150px;
+    border-radius: 150px;
+    background-color: #999999;
+    object-fit: cover;}
